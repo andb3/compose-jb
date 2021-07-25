@@ -4,6 +4,7 @@ import org.jetbrains.compose.common.ui.Modifier
 import androidx.compose.runtime.Composable
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.common.ui.Alignment
+import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.ui.Styles
 
 private fun Arrangement.Horizontal.asClassName() = when (this) {
@@ -33,6 +34,30 @@ internal actual fun RowActual(
                     verticalAlignment.asClassName()
                 )
             )
+            style {
+                when(horizontalArrangement) {
+                    Arrangement.Start -> justifyContent(JustifyContent.FlexStart)
+                    Arrangement.Center -> justifyContent(JustifyContent.Center)
+                    Arrangement.End -> justifyContent(JustifyContent.FlexEnd)
+                    Arrangement.SpaceAround -> justifyContent(JustifyContent.SpaceAround)
+                    Arrangement.SpaceBetween -> justifyContent(JustifyContent.SpaceBetween)
+                    Arrangement.SpaceEvenly -> justifyContent(JustifyContent.SpaceEvenly)
+                    is SpacedArrangement -> {
+                        val direction = when(horizontalArrangement.alignment) {
+                            Alignment.Start -> JustifyContent.FlexStart
+                            Alignment.CenterHorizontally -> JustifyContent.Center
+                            else -> JustifyContent.FlexEnd
+                        }
+                        justifyContent(direction)
+                        property("gap", horizontalArrangement.space.value.px)
+                    }
+                }
+                when(verticalAlignment) {
+                    Alignment.Top -> alignContent(AlignContent.Start)
+                    Alignment.CenterVertically -> alignContent(AlignContent.Center)
+                    Alignment.Bottom -> alignContent(AlignContent.End)
+                }
+            }
         }
     ) {
         content()
