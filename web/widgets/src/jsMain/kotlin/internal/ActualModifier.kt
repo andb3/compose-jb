@@ -4,7 +4,7 @@ import org.jetbrains.compose.common.ui.Modifier
 import org.jetbrains.compose.web.css.StyleBuilder
 import org.jetbrains.compose.web.attributes.AttrsBuilder
 
-class ActualModifier : Modifier {
+class ActualModifier : Modifier.Element {
     val styleHandlers = mutableListOf<StyleBuilder.() -> Unit>()
     val attrHandlers = mutableListOf<AttrsBuilder<*>.() -> Unit>()
 
