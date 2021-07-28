@@ -9,12 +9,15 @@ import org.w3c.dom.Node
 
 @Composable
 fun ModifierWrapperLayout(modifier: Modifier, content: @Composable () -> Unit) {
-    val wrappedContent = modifier.foldOut(content) { element, innerContent ->
-        {
+    println("ModifierWrapperLayout, modifier = $modifier")
+    val wrappedContent: @Composable () -> Unit = modifier.foldOut(content) { element, innerContent ->
+        println("folding element = $element")
+        val wrapped: @Composable () -> Unit = {
             Div( attrs = element.asAttributeBuilderApplier() ) {
                 innerContent()
             }
         }
+        wrapped
     }
     wrappedContent()
 }

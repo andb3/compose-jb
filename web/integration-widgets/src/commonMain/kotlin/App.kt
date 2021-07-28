@@ -23,6 +23,7 @@ import org.jetbrains.compose.common.foundation.layout.width
 import org.jetbrains.compose.common.foundation.clickable
 import org.jetbrains.compose.common.ui.draw.clip
 import jetbrains.compose.common.shapes.CircleShape
+import kotlin.random.Random
 
 object LayoutSamples {
     @Composable
@@ -123,9 +124,25 @@ object LayoutSamples {
             }
         }
     }
+
+    @Composable
+    fun NestedModifiers() {
+        val middleColor = remember { mutableStateOf(Color.Blue) }
+        Box(
+            modifier = Modifier
+                .padding(16.dp)
+                .background(Color.Red)
+                .padding(8.dp)
+                .clickable { middleColor.value = Color(Random.nextInt(0, 255), Random.nextInt(0, 255), Random.nextInt(0, 255)) }
+                .background(middleColor.value)
+                .padding(4.dp)
+                .background(Color.Green)
+                .size(16.dp)
+        ) {}
+    }
 }
 
 @Composable
 fun App() {
-    LayoutSamples.TwoTextsInColumn()
+    LayoutSamples.NestedModifiers()
 }

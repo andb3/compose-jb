@@ -2,17 +2,15 @@ package org.jetbrains.compose.common.ui
 
 import org.jetbrains.compose.common.ui.unit.Dp
 import org.jetbrains.compose.common.core.graphics.Color
-import org.jetbrains.compose.web.css.backgroundColor
-import org.jetbrains.compose.web.css.margin
-import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.common.internal.ActualModifier
+import org.jetbrains.compose.common.internal.StyleModifier
 import org.jetbrains.compose.web.css.Color.RGB
 import org.jetbrains.compose.common.internal.castOrCreate
 import org.jetbrains.compose.web.attributes.AttrsBuilder
+import org.jetbrains.compose.web.css.*
 
-actual fun Modifier.background(color: Color): Modifier = castOrCreate().apply {
-    add {
-        backgroundColor(RGB(color.red, color.green, color.blue))
-    }
+actual fun Modifier.background(color: Color): Modifier = this then StyleModifier {
+    backgroundColor(rgb(color.red, color.green, color.blue))
 }
 
 fun Modifier.asAttributeBuilderApplier(
@@ -23,6 +21,7 @@ fun Modifier.asAttributeBuilderApplier(
             modifier.attrHandlers.forEach { it.invoke(this) }
 
             style {
+                display(DisplayStyle.LegacyInlineFlex) //inline-flex behaves like traditional Compose layouts, so begin with that
                 modifier.styleHandlers.forEach { it.invoke(this) }
             }
 
@@ -32,9 +31,7 @@ fun Modifier.asAttributeBuilderApplier(
         st
     }
 
-actual fun Modifier.padding(all: Dp): Modifier = castOrCreate().apply {
+actual fun Modifier.padding(all: Dp): Modifier = this then StyleModifier {
     // yes, it's not a typo, what Modifier.padding does is actually adding margin
-    add {
-        margin(all.value.px)
-    }
+    margin(all.value.px)
 }

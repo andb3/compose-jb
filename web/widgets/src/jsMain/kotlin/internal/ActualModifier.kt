@@ -18,3 +18,6 @@ class ActualModifier : Modifier.Element {
 }
 
 fun Modifier.castOrCreate(): ActualModifier = (this as? ActualModifier) ?: ActualModifier()
+
+fun StyleModifier(builder: StyleBuilder.() -> Unit) = ActualModifier().apply { add(builder) }
+fun AttributeModifier(builder: AttrsBuilder<*>.() -> Unit) = ActualModifier().apply { addAttributeBuilder(builder) }
