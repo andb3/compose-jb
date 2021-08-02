@@ -133,6 +133,7 @@ object LayoutSamples {
                 .padding(16.dp)
                 .background(Color.Red)
                 .padding(8.dp)
+                .border(4.dp, Color.White)
                 .clickable { middleColor.value = Color(Random.nextInt(0, 255), Random.nextInt(0, 255), Random.nextInt(0, 255)) }
                 .background(middleColor.value)
                 .padding(4.dp)
