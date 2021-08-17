@@ -1,8 +1,9 @@
 package org.jetbrains.compose.common.foundation.layout
 
-import org.jetbrains.compose.common.ui.Modifier
 import androidx.compose.runtime.Composable
 import org.jetbrains.compose.common.ui.Alignment
+import org.jetbrains.compose.common.ui.Modifier
+import org.jetbrains.compose.common.ui.asAttributeBuilderApplier
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.ui.Styles
@@ -17,7 +18,7 @@ internal actual fun ColumnActual(
     Div(
         attrs = {
             classes(Styles.columnClass)
-
+            apply(modifier.asAttributeBuilderApplier())
             style {
                 when(verticalArrangement) {
                     Arrangement.Top -> justifyContent(JustifyContent.FlexStart)
